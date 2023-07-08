@@ -1,0 +1,113 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot CV</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        #pdf {
+            background: white;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+        }
+        .title {
+            text-align: center;
+            color: black;
+            font-size: 36px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            margin-top: 100px;
+            word-wrap: break-word;
+        }
+        .content {
+            text-align: justify;
+            margin-top: 100px;
+            color: black;
+            font-size: 14px;
+            font-family: 'Amaranth', sans-serif;
+            font-weight: 400;
+            word-wrap: break-word;
+        }
+
+        .content p {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="pdf">
+        <div class="logo">
+            <img src="img/logo.svg" class="logo">
+        </div>
+        <div class="title">Lettre de motivation</div>
+        <div class="content">
+            <p>
+                Je me permets de vous envoyer ce mail car je suis en formation Bachelor chef de projet digital à la Normandie web school et je suis à la recherche d’une alternance pour une durée de 2 ans. C’est pourquoi je vous propose ma candidature pour <span id="poste"></span>.
+            </p>
+            <p>
+                C'est l'occasion pour moi d'enrichir mon expérience professionnelle, de mettre à votre disposition mes idées et ma vision des choses et de m'épanouir avec un large panel de missions.
+            </p>
+            <p>
+                Mais c’est aussi une opportunité pour mettre en pratique mes compétences que j’ai acquises durant mes expériences professionnelles et celles que je développe durant ma formation. Souhaitant me spécialiser en développement web, je suis aussi formé à la gestion des réseaux sociaux et de site web, au développement et au marketing pour obtenir le titre de chef de projet digital. Cela me permet d’avoir tous les outils nécessaires pour <span id="texte"></span>.
+            </p>
+            <p>
+                Je tiens à vous préciser que les aides de l'état pour l'embauche d'un alternant sont prolongées jusqu'en 2027 <a href="https://entreprendre.service-public.fr/vosdroits/F23556">https://entreprendre.service-public.fr/vosdroits/F23556</a>.
+            </p>
+            <p>
+                Je vous joins mon portfolio pour découvrir mes réalisations : <a href="https://thomasremblier.fr/">https://thomasremblier.fr/</a>.
+            </p>
+            <p>
+                En espérant que ma candidature retiendra votre attention, je reste à votre disposition pour un prochain entretien.
+            </p>
+            <p>
+                Thomas Remblier
+            </p>
+        </div>
+    </div>
+
+    <form id="pdfmodifier">
+        <input type="text" id="posteInput" placeholder="poste">
+        <input type="text" id="texteInput" placeholder="texte"> 
+        <button type="submit">Mettre à jour</button>
+    </form>
+
+    <button onclick="functionPDF()">Générer</button>
+
+    <script>
+        window.onload = function() {
+            document.getElementById('pdfmodifier').addEventListener('submit', function(e) {
+                e.preventDefault();
+                document.getElementById('poste').textContent = document.getElementById('posteInput').value;
+                document.getElementById('texte').textContent = document.getElementById('texteInput').value;
+            });
+        };
+
+        function functionPDF() {
+            let PDF = document.getElementById('pdf');
+    
+            // Options pour la génération du PDF
+            let options = {
+                filename: 'lettre_motivation.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 4 },
+                margin: 10,
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+    
+            // Générer le PDF
+            html2pdf().set(options).from(PDF).save();
+        };
+    </script>
+</body>
+</html>
